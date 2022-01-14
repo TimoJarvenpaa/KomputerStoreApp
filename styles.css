@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container > div {
+    background-color: #f1f1f1bd;
+    padding: 10px;
+}
+
+span {
+    display: inline-block;
+}
