@@ -6,6 +6,7 @@ const payElement = document.getElementById('pay');
 const loanButtonElement = document.getElementById('btn-loan');
 const bankButtonElement = document.getElementById('btn-bank');
 const workButtonElement = document.getElementById('btn-work');
+const repayButtonElement = document.getElementById('btn-repay');
 
 // initial values for main variables
 let balance = 0.00;
@@ -38,8 +39,10 @@ const handleBankClick = () => {
 
     if (loan == 0.00) {
         loanElement.innerText = '';
+        repayButtonElement.style.display = 'none';
     } else {
         loanElement.innerText = `Current loan ${loan.toFixed(2)} Kr`;
+        repayButtonElement.style.display = 'block';
     }
 }
 
@@ -64,15 +67,37 @@ const handleLoanClick = () => {
         loan += enteredAmount;
         balanceElement.innerText = `${balance.toFixed(2)} Kr`;
         loanElement.innerText = `Current loan ${loan.toFixed(2)} Kr`;
+        repayButtonElement.style.display = 'block';
     }
 }
 
-// TODO
-const handleRepayLoan = () => {
-    return;
+// event handler for the 'Repay Loan' button
+const handleRepayClick = () => {
+    if (pay == 0.00) {
+        return;
+    }
+
+    if (loan > pay && pay != 0.00) {
+        loan -= pay;
+        pay = 0.00;
+    } else {
+        pay -= loan;
+        loan = 0.00;
+    }
+
+    if (loan == 0.00) {
+        loanElement.innerText = '';
+        payElement.innerText = `${pay.toFixed(2)} Kr`;
+        repayButtonElement.style.display = 'none';
+    } else {
+        loanElement.innerText = `Current loan ${loan.toFixed(2)} Kr`;
+        payElement.innerText = `${pay.toFixed(2)} Kr`;
+        repayButtonElement.style.display = 'block';
+    }
 }
 
 // event listeners for the interactive elements
 workButtonElement.addEventListener('click', handleWorkClick);
 bankButtonElement.addEventListener('click', handleBankClick);
 loanButtonElement.addEventListener('click', handleLoanClick);
+repayButtonElement.addEventListener('click', handleRepayClick);
