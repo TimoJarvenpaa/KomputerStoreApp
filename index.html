@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,31 +8,52 @@
     <title>Komputer Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <h2>Komputer Store</h2>
+    <header>
+        <h1>Komputer Store</h1>
+    </header>
     <div class="container">
-        <div>
+        <div class="bank content">
             <h2>Joe Banker</h2>
             <span>Balance</span>
-            <span id="balance">0.00 Kr</span>
+            <span id="balance">0.00 €</span>
             <br>
             <span id="loan"></span>
             <br>
-            <button id="btn-loan">Get a loan</button>
+            <button id="btn-loan" class="button">Get a loan</button>
         </div>
-        <div>
+        <div class="work content">
             <h2>Work</h2>
             <span>Pay</span>
-            <span id="pay">0.00 Kr</span>
+            <span id="pay">0.00 €</span>
             <br>
             <br>
-            <button id="btn-bank">Bank</button>
-            <button id="btn-work">Work</button>
-            <br>
-            <button id="btn-repay">Repay Loan</button>
+            <button id="btn-bank" class="button">Bank</button>
+            <button id="btn-work" class="button">Work</button>
+            <button id="btn-repay" class="button">Repay Loan</button>
         </div>
-        <div>Laptops</div>
+        <div class="laptops content">
+            <h2>Laptops</h2>
+            <select name="laptops" id="laptops">
+            </select>
+            <p><b>Features</b></p>
+            <ul id="features">
+            </ul>
+        </div>
+        <div class="laptop content">
+            <div class="laptop-image">
+                <img id="laptop-image" width="300" height="300">
+            </div>
+            <div class="laptop-info">
+                <h1 id="laptop-title"></h1>
+                <p id="laptop-description"></p>
+                <h2 id="laptop-price"></h2>
+                <button id="btn-buy" class="button"><b>BUY NOW</b></button>
+            </div>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>
