@@ -22,6 +22,7 @@ let balance = 0.00;
 let loan = 0.00;
 let pay = 0.00;
 let laptops = [];
+let currentSelectedLaptop = 0;
 let baseUrl = 'https://noroff-komputer-store-api.herokuapp.com/'
 
 // API request for laptops
@@ -59,6 +60,7 @@ const addLaptopToMenu = (laptop) => {
 
 // used for updating all the necessary information when the selected computer changes
 const updateLaptopInfo = (laptop) => {
+    currentSelectedLaptop = laptop;
     laptopImageElement.src = `${baseUrl}` + `${laptop.image}`;
     laptopTitleElement.innerHTML = laptop.title;
     laptopDescriptionElement.innerHTML = laptop.description;
@@ -114,7 +116,7 @@ const handleLoanClick = () => {
 
     const enteredAmount = parseFloat(prompt("Please enter the amount of loan you'd like to take: "));
 
-    if (isNaN(enteredAmount)) {
+    if (isNaN(enteredAmount) || enteredAmount <= 0) {
         alert('Invalid input.');
         return;
     } else if (enteredAmount > 2 * balance) {
@@ -154,9 +156,24 @@ const handleRepayClick = () => {
     }
 }
 
+// event handler for the laptop menu
 const handleLaptopMenuChange = e => {
     const selectedLaptop = laptops[e.target.selectedIndex];
+    currentSelectedLaptop = selectedLaptop;
     updateLaptopInfo(selectedLaptop);
+}
+
+// event handler for the 'Buy Now' button
+const handleBuyClick = () => {
+    let price = currentSelectedLaptop.price;
+    if (price > balance) {
+        alert('You cannot afford this computer.');
+        return;
+    } else {
+        balance -= price;
+        balanceElement.innerText = formatCurrency(balance);
+        alert('You have successfully purchased this computer.');
+    }
 }
 
 // event listeners for the interactive elements
@@ -165,6 +182,7 @@ bankButtonElement.addEventListener('click', handleBankClick);
 loanButtonElement.addEventListener('click', handleLoanClick);
 repayButtonElement.addEventListener('click', handleRepayClick);
 laptopMenuElement.addEventListener('change', handleLaptopMenuChange);
+buyButtonElement.addEventListener('click', handleBuyClick);
 
 // helper function that transforms numbers into a correct currency format
 const formatCurrency = (number) => {
