@@ -4,6 +4,14 @@
 
 The Komputer Store App is a dynamic wep page built with "vanilla" JavaScript and basic HTML/CSS.
 
+## Installation
+
+Clone the repository.
+
+## Usage
+
+To run the project locally you can e.g. open it using VSCode and then open the index.html file with Live Server (requires the Live Server extension).
+
 ## Main Features
 
 ### Bank
