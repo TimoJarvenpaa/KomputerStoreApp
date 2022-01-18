@@ -3,13 +3,14 @@
 const balanceElement = document.getElementById('balance');
 const loanElement = document.getElementById('loan');
 const payElement = document.getElementById('pay');
-const laptopMenuElement = document.getElementById('laptops');
-const laptopFeaturesElement = document.getElementById('features');
 
-const laptopImageElement = document.getElementById('laptop-image');
-const laptopTitleElement = document.getElementById('laptop-title');
-const laptopDescriptionElement = document.getElementById('laptop-description');
-const laptopPriceElement = document.getElementById('laptop-price');
+const computerMenuElement = document.getElementById('computers');
+const computerFeaturesElement = document.getElementById('features');
+
+const computerImageElement = document.getElementById('computer-image');
+const computerTitleElement = document.getElementById('computer-title');
+const computerDescriptionElement = document.getElementById('computer-description');
+const computerPriceElement = document.getElementById('computer-price');
 
 const loanButtonElement = document.getElementById('btn-loan');
 const bankButtonElement = document.getElementById('btn-bank');
@@ -21,55 +22,55 @@ const buyButtonElement = document.getElementById('btn-buy');
 let balance = 0.00;
 let loan = 0.00;
 let pay = 0.00;
-let laptops = [];
-let currentSelectedLaptop = 0;
+let computers = [];
+let currentSelectedComputer = 0;
 let baseUrl = 'https://noroff-komputer-store-api.herokuapp.com/'
 
-// API request for laptops
+// API request for computers
 fetch(baseUrl + 'computers')
     .then(response => response.json())
-    .then(data => laptops = data)
-    .then(laptops => {
-        addLaptopsToMenu(laptops)
-        fixApiMistake(laptops)
+    .then(data => computers = data)
+    .then(computers => {
+        addComputersToMenu(computers)
+        fixApiMistake(computers)
     });
 
 
 // fixes the incorrect file extension on computer #5
-const fixApiMistake = (laptops) => {
-    laptops.forEach(laptop => {
-        if (laptop.id == 5) {
-            laptop.image = 'assets/images/5.png'
+const fixApiMistake = (computers) => {
+    computers.forEach(computer => {
+        if (computer.id == 5) {
+            computer.image = 'assets/images/5.png'
         }
     })
 }
 
 // populates the select menu with computers
-const addLaptopsToMenu = (laptops) => {
-    laptops.forEach(x => addLaptopToMenu(x))
-    updateLaptopInfo(laptops[0])
+const addComputersToMenu = (computers) => {
+    computers.forEach(c => addComputerToMenu(c))
+    updateComputerInfo(computers[0])
 }
 
 // appends a single computer to the computer select menu
-const addLaptopToMenu = (laptop) => {
-    const laptopElement = document.createElement('option');
-    laptopElement.value = laptop.id;
-    laptopElement.appendChild(document.createTextNode(laptop.title));
-    laptopMenuElement.appendChild(laptopElement);
+const addComputerToMenu = (computer) => {
+    const computerElement = document.createElement('option');
+    computerElement.value = computer.id;
+    computerElement.appendChild(document.createTextNode(computer.title));
+    computerMenuElement.appendChild(computerElement);
 }
 
 // used for updating all the necessary information when the selected computer changes
-const updateLaptopInfo = (laptop) => {
-    currentSelectedLaptop = laptop;
-    laptopImageElement.src = `${baseUrl}` + `${laptop.image}`;
-    laptopTitleElement.innerHTML = laptop.title;
-    laptopDescriptionElement.innerHTML = laptop.description;
-    laptopPriceElement.innerHTML = formatCurrency(laptop.price);
-    laptopFeaturesElement.innerHTML = '';
-    laptop.specs.forEach(feature => {
+const updateComputerInfo = (computer) => {
+    currentSelectedComputer = computer;
+    computerImageElement.src = `${baseUrl}` + `${computer.image}`;
+    computerTitleElement.innerHTML = computer.title;
+    computerDescriptionElement.innerHTML = computer.description;
+    computerPriceElement.innerHTML = formatCurrency(computer.price);
+    computerFeaturesElement.innerHTML = '';
+    computer.specs.forEach(feature => {
         const featureItem = document.createElement('li')
         featureItem.innerHTML = feature;
-        laptopFeaturesElement.appendChild(featureItem);
+        computerFeaturesElement.appendChild(featureItem);
     });
 }
 
@@ -156,16 +157,16 @@ const handleRepayClick = () => {
     }
 }
 
-// event handler for the laptop menu
-const handleLaptopMenuChange = e => {
-    const selectedLaptop = laptops[e.target.selectedIndex];
-    currentSelectedLaptop = selectedLaptop;
-    updateLaptopInfo(selectedLaptop);
+// event handler for the computer menu
+const handleComputerMenuChange = e => {
+    const selectedComputer = computers[e.target.selectedIndex];
+    currentSelectedComputer = selectedComputer;
+    updateComputerInfo(selectedComputer);
 }
 
 // event handler for the 'Buy Now' button
 const handleBuyClick = () => {
-    let price = currentSelectedLaptop.price;
+    let price = currentSelectedComputer.price;
     if (price > balance) {
         alert('You cannot afford this computer.');
         return;
@@ -181,7 +182,7 @@ workButtonElement.addEventListener('click', handleWorkClick);
 bankButtonElement.addEventListener('click', handleBankClick);
 loanButtonElement.addEventListener('click', handleLoanClick);
 repayButtonElement.addEventListener('click', handleRepayClick);
-laptopMenuElement.addEventListener('change', handleLaptopMenuChange);
+computerMenuElement.addEventListener('change', handleComputerMenuChange);
 buyButtonElement.addEventListener('click', handleBuyClick);
 
 // helper function that transforms numbers into a correct currency format
