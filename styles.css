@@ -47,10 +47,21 @@ body {
 .computers {
     grid-row: 1;
     grid-column: 3;
+    width: 450px;
+}
+
+.computers > h2, p {
+    text-align: center;
+}
+
+#computers {
+    display: block;
+    margin: 0 auto;
+}
+
+#features {
     display: flex;
 	flex-direction: column;
-    padding: 30px;
-    width: 450px;
 }
 
 .computer {
@@ -85,7 +96,7 @@ body {
 
 #btn-repay {
     display: none;
-    background-color: rgb(192, 99, 192);
+    background-color: rgb(230, 137, 230);
     margin: 0 auto;
 }
 
